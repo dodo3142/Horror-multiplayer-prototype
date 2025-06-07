@@ -1,0 +1,149 @@
+[gd_scene load_steps=10 format=3 uid="uid://b5htyxqnjdyul"]
+
+[ext_resource type="Script" uid="uid://q4s6ax7lqpu4" path="res://Levels/test_level.gd" id="1_4k7nh"]
+[ext_resource type="Texture2D" uid="uid://b8kx6fr3vya0y" path="res://addons/kenney_prototype_textures/dark/texture_07.png" id="2_3frvm"]
+[ext_resource type="PackedScene" uid="uid://1o4ino6wfo2r" path="res://Sceens/Door.tscn" id="3_yo6ro"]
+[ext_resource type="PackedScene" uid="uid://begvkopw8jy43" path="res://Sceens/door_key.tscn" id="4_vjff5"]
+[ext_resource type="PackedScene" uid="uid://bsw6vohkykxdx" path="res://Sceens/keypad.tscn" id="5_sugn8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjric"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_energy_multiplier = 0.35
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_fnyr6"]
+sky_material = SubResource("ProceduralSkyMaterial_jjric")
+
+[sub_resource type="Environment" id="Environment_5vt7y"]
+background_mode = 2
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_fnyr6")
+ambient_light_source = 1
+ambient_light_color = Color(1, 0.964706, 0.909804, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.02
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+fog_light_energy = 0.01
+fog_density = 0.05
+fog_sky_affect = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7rcwg"]
+albedo_texture = ExtResource("2_3frvm")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[node name="TestLevel" type="Node3D"]
+script = ExtResource("1_4k7nh")
+
+[node name="Light" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.96769, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Light"]
+environment = SubResource("Environment_5vt7y")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Light"]
+transform = Transform3D(-0.127532, -0.889985, -0.437793, -0.490551, -0.327031, 0.807719, -0.86203, 0.31777, -0.394876, -4.46649, 3.81467, -4.76837e-07)
+visible = false
+shadow_enabled = true
+
+[node name="Stage" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(25.5298, 0, 0, 0, 1, 0, 0, 0, 25.9689, 0, 0, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_7rcwg")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(3.01076, 0, 0, 0, 1, 0, 0, 0, 4.08201, 0, 0.896634, 6.35625)
+use_collision = true
+size = Vector3(0.521034, 0.858265, 0.376811)
+material = SubResource("StandardMaterial3D_7rcwg")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(3.01076, 0, 0, 0, 1, 0, 0, 0, 4.08201, 1.63098, 2.41814, 6.35625)
+use_collision = true
+size = Vector3(0.521034, 3.83629, 0.376811)
+material = SubResource("StandardMaterial3D_7rcwg")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(3.01076, 0, 0, 0, 1, 0, 0, 0, 4.08201, 2.63098, 2.41814, 6.35625)
+use_collision = true
+size = Vector3(0.521034, 3.83629, 0.376811)
+material = SubResource("StandardMaterial3D_7rcwg")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(3.01076, 0, 0, 0, 1, 0, 0, 0, 4.08201, 3.63098, 2.41814, 6.35625)
+use_collision = true
+size = Vector3(0.521034, 3.83629, 0.376811)
+material = SubResource("StandardMaterial3D_7rcwg")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(3.01076, 0, 0, 0, 1, 0, 0, 0, 4.08201, 4.63098, 2.41814, 6.35625)
+use_collision = true
+size = Vector3(0.521034, 3.83629, 0.376811)
+material = SubResource("StandardMaterial3D_7rcwg")
+
+[node name="Door" parent="Stage" instance=ExtResource("3_yo6ro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.04437, 0.5, -6.42737)
+
+[node name="Door2" parent="Stage" node_paths=PackedStringArray("KeyForDoor") instance=ExtResource("3_yo6ro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.04437, 0.5, -2.66088)
+isLocked = true
+NeedKey = true
+KeyForDoor = NodePath("DoorKey")
+
+[node name="DoorKey" parent="Stage/Door2" instance=ExtResource("4_vjff5")]
+transform = Transform3D(0.337653, 0, 0, 0, 0.258971, 0, 0, 0, 0.528623, -6.39005, 0.686115, 9.07573)
+
+[node name="Door3" parent="Stage" instance=ExtResource("3_yo6ro")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.00916, 0.51394, 5.72634)
+isLocked = true
+
+[node name="Keypad" parent="Stage/Door3" node_paths=PackedStringArray("Door") instance=ExtResource("5_sugn8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.127184, 1.53952, 1.00916)
+Door = NodePath("..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 412.0
+offset_top = 248.0
+offset_right = -412.0
+offset_bottom = -247.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="HostButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="AddresEntery" type="LineEdit" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter Address to join"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://o4mahbbhfsaj")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

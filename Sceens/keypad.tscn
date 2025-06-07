@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsw6vohkykxdx"]
+
+[ext_resource type="Script" uid="uid://n0oefl21amyb" path="res://Scripts/keypad.gd" id="1_2rmx0"]
+[ext_resource type="PackedScene" uid="uid://eljww7ks4uxi" path="res://Sceens/interact_area.tscn" id="2_8nga3"]
+
+[node name="Keypad" type="Node3D"]
+script = ExtResource("1_2rmx0")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(0.322266, 0.646484, 0.0625)
+
+[node name="InteractArea" parent="." node_paths=PackedStringArray("Parent") instance=ExtResource("2_8nga3")]
+Parent = NodePath("..")
+
+[node name="CollisionShape3D" parent="InteractArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0280299, 1.32433, 0.519229)
+
+[editable path="InteractArea"]
