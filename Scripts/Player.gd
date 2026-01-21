@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+@export var PlayerName : String  = "TAITOKI"
+@export var Steam_Id : int = 0
+
 
 var CurrentSpeed = 5
 @export var WalkSpeed = 5
@@ -17,30 +20,42 @@ var t_bob = 0
 var MoveDir = Vector3.ZERO
 var InputDir = Vector3.ZERO
 
+var MouseLock = true
+
 @onready var PlayerMesh = $PlayerMesh
 @onready var PlayerHead = $Head
 @onready var PlayerCamera = $Head/Camera3D
 @onready var FlashLight = $Head/Camera3D/FlashLight
 @onready var InteractRay = $Head/Camera3D/InteractRay
 @onready var HintText = $UI/HintText
+@onready var Name: Label3D = $Name
 
 func _enter_tree():
-	set_multiplayer_authority(str(name).to_int())
+	pass
 
 func _ready():
 	if not is_multiplayer_authority(): return
 	PlayerMesh.visible = false
+	Name.visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	PlayerCamera.current = true
 
 func _process(delta):
 	if not is_multiplayer_authority(): return
-	
 	if Input.is_action_just_pressed("FlashLight"):
 		if FlashLight.visible == true:
 			FlashLight.visible = false
 		else:
 			FlashLight.visible = true
+	
+	if Input.is_action_just_pressed("Exit"):
+		if MouseLock == true:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			MouseLock = false
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			MouseLock = true
+	
 	
 	#HeadBobing
 	t_bob += delta * velocity.length() * float(is_on_floor())
@@ -61,7 +76,7 @@ func Movement(delta):
 	if not is_on_floor():
 		velocity.y -= graity * delta 
 	
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
+	if Input.is_action_pressed("Jump") and is_on_floor():
 		velocity.y = JumpForce
 	
 	
@@ -82,7 +97,6 @@ func Movement(delta):
 
 func _input(event):
 	if not is_multiplayer_authority(): return
-	
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * MouseSenstivity))
 		PlayerHead.rotate_x(deg_to_rad(-event.relative.y * MouseSenstivity))
