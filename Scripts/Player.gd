@@ -120,8 +120,10 @@ func PlayerInteract():
 
 func HintTextUpdate(Hint):
 	HintText.text = Hint
+	HintText.modulate =Color(1, 1, 1,1)
 	$Timers/HintTimer.start()
 
 
 func _on_hint_timer_timeout():
-	HintText.text = ""
+	var tween = create_tween()
+	tween.tween_property(HintText,"modulate", Color(1, 1, 1,0),0.2)

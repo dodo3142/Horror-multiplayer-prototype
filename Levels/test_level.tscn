@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://cuf70qa8avgny" path="res://addons/kenney_prototype_textures/dark/texture_08.png" id="2_3158n"]
 [ext_resource type="PackedScene" uid="uid://1o4ino6wfo2r" path="res://Sceens/Door.tscn" id="3_yo6ro"]
 [ext_resource type="PackedScene" uid="uid://begvkopw8jy43" path="res://Sceens/door_key.tscn" id="4_vjff5"]
-[ext_resource type="PackedScene" uid="uid://bsw6vohkykxdx" path="res://Sceens/keypad.tscn" id="5_sugn8"]
 [ext_resource type="Script" uid="uid://b8fwg7ogkdb1f" path="res://Scripts/player_spawner.gd" id="6_ub4j8"]
 [ext_resource type="PackedScene" uid="uid://o4mahbbhfsaj" path="res://Sceens/player.tscn" id="7_pvdih"]
 
@@ -33,7 +32,6 @@ environment = SubResource("Environment_7e6fp")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Light" unique_id=1657303795]
 transform = Transform3D(-0.127532, -0.889985, -0.437793, -0.490551, -0.327031, 0.807719, -0.86203, 0.31777, -0.394876, -4.46649, 3.81467, -4.76837e-07)
-visible = false
 shadow_enabled = true
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Light" unique_id=1455465329]
@@ -93,16 +91,11 @@ transform = Transform3D(0.337653, 0, 0, 0, 0.258971, 0, 0, 0, 0.528623, -6.39005
 
 [node name="Door3" parent="Stage" unique_id=445215653 instance=ExtResource("3_yo6ro")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.00916, 0.51394, 5.72634)
-isLocked = true
-
-[node name="Keypad" parent="Stage/Door3" unique_id=1043212965 node_paths=PackedStringArray("Door") instance=ExtResource("5_sugn8")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.127184, 1.53952, 1.00916)
-Door = NodePath("..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1567079190]
-visible = false
 
-[node name="MainMenu" type="PanelContainer" parent="CanvasLayer" unique_id=796427563]
+[node name="NormalMulti" type="PanelContainer" parent="CanvasLayer" unique_id=796427563]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -113,28 +106,76 @@ offset_bottom = -247.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu" unique_id=534467900]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/NormalMulti" unique_id=534467900]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/MarginContainer" unique_id=737832331]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/NormalMulti/MarginContainer" unique_id=737832331]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="HostButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1829018062]
+[node name="HostButton" type="Button" parent="CanvasLayer/NormalMulti/MarginContainer/VBoxContainer" unique_id=1829018062]
 layout_mode = 2
 text = "Host"
 
-[node name="JoinButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1799206901]
+[node name="JoinButton" type="Button" parent="CanvasLayer/NormalMulti/MarginContainer/VBoxContainer" unique_id=1799206901]
 layout_mode = 2
 text = "Join"
 
-[node name="AddresEntery" type="LineEdit" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=931865486]
+[node name="AddresEntery" type="LineEdit" parent="CanvasLayer/NormalMulti/MarginContainer/VBoxContainer" unique_id=931865486]
 layout_mode = 2
 placeholder_text = "Enter Address to join"
+
+[node name="LobbyList" type="VScrollBar" parent="CanvasLayer/NormalMulti/MarginContainer/VBoxContainer" unique_id=169343688]
+layout_mode = 2
+
+[node name="SteamMulti" type="PanelContainer" parent="CanvasLayer" unique_id=1791426933]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 412.0
+offset_top = 248.0
+offset_right = -412.0
+offset_bottom = -247.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SteamMulti" unique_id=1892450041]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SteamMulti/MarginContainer" unique_id=1273050630]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="HostButton" type="Button" parent="CanvasLayer/SteamMulti/MarginContainer/VBoxContainer" unique_id=2075605600]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/SteamMulti/MarginContainer/VBoxContainer" unique_id=171461732]
+layout_mode = 2
+text = "Join"
+
+[node name="AddresEntery" type="LineEdit" parent="CanvasLayer/SteamMulti/MarginContainer/VBoxContainer" unique_id=685826819]
+layout_mode = 2
+placeholder_text = "Enter Address to join"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/SteamMulti/MarginContainer/VBoxContainer" unique_id=605547758]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="LobbiesList" type="VBoxContainer" parent="CanvasLayer/SteamMulti/MarginContainer/VBoxContainer/ScrollContainer" unique_id=344290874]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1485990080]
 _spawnable_scenes = PackedStringArray("uid://o4mahbbhfsaj")
@@ -145,5 +186,7 @@ PlayerScene = ExtResource("7_pvdih")
 [node name="Marker3D" type="Marker3D" parent="PlayerSpawner" unique_id=693181095]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6437907, -9.868112)
 
-[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/NormalMulti/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/NormalMulti/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SteamMulti/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SteamMulti/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

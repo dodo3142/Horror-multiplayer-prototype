@@ -8,6 +8,8 @@ var isLobbyHost : bool
 var Lobby_ID : int
 var LobbyMembers: Array
 
+var peer : SteamMultiplayerPeer = SteamMultiplayerPeer.new()
+
 
 func _init() -> void:
 	OS.set_environment("SteamAppId", str(SteamAppID))
