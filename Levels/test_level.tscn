@@ -196,4 +196,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6437907, -5.2554474)
 [connection signal="pressed" from="CanvasLayer/NormalMulti/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/SteamMulti/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/SteamMulti/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="text_changed" from="CanvasLayer/SteamMulti/MarginContainer/VBoxContainer/AddresEntery" to="." method="_on_addres_entery_text_changed"]
 [connection signal="pressed" from="CanvasLayer/SteamMulti/MarginContainer/VBoxContainer/RefreshLobbies" to="." method="_on_refresh_lobbies_pressed"]

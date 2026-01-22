@@ -32,9 +32,9 @@ var MouseLock = true
 
 func _enter_tree():
 	add_to_group("players")
+	set_multiplayer_authority(name.to_int())
 
 func _ready():
-	set_multiplayer_authority(name.to_int())
 	if is_multiplayer_authority():
 		PlayerMesh.visible = false
 		PlayerNameLable.visible = false
@@ -43,7 +43,7 @@ func _ready():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		PlayerCamera.current = true
 	else:
-		Steam_Id = multiplayer.multiplayer_peer.get_steam64_from_peer_id(get_multiplayer_authority())
+		Steam_Id = multiplayer.multiplayer_peer.get_steam_id_for_peer_id(get_multiplayer_authority())
 		PlayerName = Steam.getFriendPersonaName(Steam_Id)
 		PlayerNameLable.text = PlayerName
 

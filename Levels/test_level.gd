@@ -1,13 +1,19 @@
-extends  Node3D
+extends Node
 
-@export var player_scene : PackedScene
-
-var peer : SteamMultiplayerPeer = SteamManger.peer
-var is_host : bool  = false
-var is_joining : bool = false
 var lobby_id : int = 0
+var peer : SteamMultiplayerPeer
+@export var player_scene : PackedScene
+var is_host : bool  = false
+var is_joining : bool  = false
+
+@onready var host: Button = $CanvasLayer/SteamMulti/MarginContainer/VBoxContainer/HostButton
+@onready var join: Button = $CanvasLayer/SteamMulti/MarginContainer/VBoxContainer/JoinButton
+@onready var address: LineEdit = $CanvasLayer/SteamMulti/MarginContainer/VBoxContainer/AddresEntery
+
+
 
 func _ready() -> void:
+	print("Steam initialized: ", Steam.steamInit(480, true))
 	Steam.initRelayNetworkAccess()
 	Steam.lobby_created.connect(_on_lobby_created)
 	Steam.lobby_joined.connect(_on_lobby_join)
@@ -30,6 +36,7 @@ func _on_lobby_created(result: int, lobby_id: int):
 		_add_player()
 		
 		print("lobby created, lobby id:", lobby_id)
+	
 
 func join_lobby(lobby_id : int):
 	is_joining = true
@@ -50,7 +57,7 @@ func _on_lobby_join(lobby_id : int,permissions : int, locked : bool, response : 
 
 func _add_player(id : int = 1):
 	var player = player_scene.instantiate()
-	player.name = str(id)
+	player.name = str(multiplayer.get_unique_id())
 	$PlayerSpawner/Marker3D.call_deferred("add_child", player)
 	$CanvasLayer/SteamMulti.visible = false
 
@@ -64,5 +71,10 @@ func _remove_player(id : int):
 func _on_host_button_pressed() -> void:
 	host_lobby()
 
+
 func _on_join_button_pressed() -> void:
-	join_lobby($CanvasLayer/SteamMulti/MarginContainer/VBoxContainer/AddresEntery.text.to_int())
+	join_lobby(address.text.to_int())
+
+
+func _on_addres_entery_text_changed(new_text: String) -> void:
+	join.disabled = (new_text.length() <= 0)

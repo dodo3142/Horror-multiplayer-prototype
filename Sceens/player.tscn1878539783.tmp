@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://o4mahbbhfsaj"]
+
+[ext_resource type="Script" uid="uid://c3jhs6uyuid6l" path="res://Scripts/Player.gd" id="1_3jvcc"]
+[ext_resource type="Texture2D" uid="uid://ccbngkcgq6mts" path="res://addons/PNG/Outline/crosshair179.png" id="2_y1np5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xwbu1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_acjnq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qq3ne"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5vwc"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_h7b42"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Head:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Head/Camera3D/FlashLight:visible")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" unique_id=1554670272]
+collision_layer = 2
+script = ExtResource("1_3jvcc")
+WalkSpeed = 4
+SprintSpeed = 6
+JumpForce = 8
+Decleration = 0.7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=353937060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_xwbu1")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="." unique_id=1726143497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_acjnq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerMesh" unique_id=541500774]
+transform = Transform3D(0.656607, 0, 0, 0, 0.31338, 0, 0, 0, 0.834087, 0, 0.587653, -0.306799)
+mesh = SubResource("BoxMesh_qq3ne")
+surface_material_override/0 = SubResource("StandardMaterial3D_o5vwc")
+
+[node name="Head" type="Node3D" parent="." unique_id=280079614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4859719, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=162195703]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.204375, 0)
+fov = 100.0
+
+[node name="FlashLight" type="SpotLight3D" parent="Head/Camera3D" unique_id=605200635]
+light_color = Color(1, 0.964706, 0.909804, 1)
+light_energy = 4.0
+shadow_enabled = true
+spot_range = 10.0
+spot_angle = 40.0
+
+[node name="InteractRay" type="RayCast3D" parent="Head/Camera3D" unique_id=1904652970]
+target_position = Vector3(0, 0, -3)
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_thickness = 1
+
+[node name="PlayerName" type="Label3D" parent="." unique_id=252316301]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 2.1812522, 0)
+billboard = 2
+text = "Taitoki"
+
+[node name="UI" type="Control" parent="." unique_id=190547688]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CrossHair" type="TextureRect" parent="UI" unique_id=1354681812]
+modulate = Color(1, 1, 1, 0.117647)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_y1np5")
+stretch_mode = 3
+
+[node name="HintText" type="Label" parent="UI" unique_id=202729104]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -97.0
+offset_right = 20.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timers" type="Node" parent="." unique_id=19843012]
+
+[node name="HintTimer" type="Timer" parent="Timers" unique_id=902202922]
+wait_time = 2.0
+one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1296679226]
+replication_config = SubResource("SceneReplicationConfig_h7b42")
+
+[connection signal="timeout" from="Timers/HintTimer" to="." method="_on_hint_timer_timeout"]
