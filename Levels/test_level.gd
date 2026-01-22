@@ -16,7 +16,7 @@ func _ready() -> void:
 	Steam.initRelayNetworkAccess()
 	Steam.lobby_created.connect(_on_lobby_created)
 	Steam.lobby_match_list.connect(_on_lobby_match_list)
-	
+
 
 
 func _process(delta: float) -> void:
@@ -76,9 +76,11 @@ func _on_lobby_match_list(lobbies: Array):
 		lobbies_list.add_child(btn)
 
 func join_lobby(_Lobby_id):
+	Steam.joinLobby(_Lobby_id)
 	peer = SteamMultiplayerPeer.new()
 	peer.server_relay = true
 	multiplayer.multiplayer_peer = peer
+	player_spawner.spawn(SteamManger.Steam_ID)
 	hide_menu()
 
 func hide_menu():
