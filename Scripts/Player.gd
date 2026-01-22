@@ -34,6 +34,7 @@ func _enter_tree():
 	add_to_group("players")
 
 func _ready():
+	set_multiplayer_authority(name.to_int())
 	if is_multiplayer_authority():
 		PlayerMesh.visible = false
 		PlayerNameLable.visible = false

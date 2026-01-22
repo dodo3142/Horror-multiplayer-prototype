@@ -23,6 +23,7 @@ uv1_world_triplanar = true
 
 [node name="TestLevel" type="Node3D" unique_id=2121638522]
 script = ExtResource("1_4k7nh")
+player_scene = ExtResource("7_pvdih")
 
 [node name="Light" type="Node3D" parent="." unique_id=2009618535]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.96769, 0)
