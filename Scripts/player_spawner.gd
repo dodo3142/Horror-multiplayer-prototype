@@ -16,6 +16,7 @@ func spawn_host():
 		spawn(1)
 
 func spawn_player(data):
+	print(data)
 	var p = PlayerScene.instantiate()
 	p.set_multiplayer_authority(data)
 	Players[data] = p
