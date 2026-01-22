@@ -57,7 +57,7 @@ func _on_lobby_join(lobby_id : int,permissions : int, locked : bool, response : 
 
 func _add_player(id : int = 1):
 	var player = player_scene.instantiate()
-	player.name = str(multiplayer.get_unique_id())
+	player.name = str(Steam.getSteamID())
 	$PlayerSpawner/Marker3D.call_deferred("add_child", player)
 	$CanvasLayer/SteamMulti.visible = false
 
