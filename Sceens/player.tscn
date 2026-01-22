@@ -67,7 +67,7 @@ collide_with_areas = true
 collide_with_bodies = false
 debug_shape_thickness = 1
 
-[node name="PlayerName" type="Label3D" parent="." unique_id=252316301]
+[node name="Name" type="Label3D" parent="." unique_id=252316301]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 2.1812522, 0)
 billboard = 2
 text = "Taitoki"

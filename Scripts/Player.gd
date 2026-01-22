@@ -28,23 +28,17 @@ var MouseLock = true
 @onready var FlashLight = $Head/Camera3D/FlashLight
 @onready var InteractRay = $Head/Camera3D/InteractRay
 @onready var HintText = $UI/HintText
-@onready var PlayerNameLable : Label3D = $PlayerName
+@onready var Name: Label3D = $Name
 
 func _enter_tree():
-	add_to_group("players")
+	pass
 
 func _ready():
-	if is_multiplayer_authority():
-		PlayerMesh.visible = false
-		PlayerNameLable.visible = false
-		PlayerName = SteamManger.SteamUserName
-		Steam_Id = SteamManger.Steam_ID
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		PlayerCamera.current = true
-	else:
-		Steam_Id = multiplayer.multiplayer_peer.get_steam64_from_peer_id(get_multiplayer_authority())
-		PlayerName = Steam.getFriendPersonaName(Steam_Id)
-		PlayerNameLable.text = PlayerName
+	if not is_multiplayer_authority(): return
+	PlayerMesh.visible = false
+	Name.visible = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	PlayerCamera.current = true
 
 func _process(delta):
 	if not is_multiplayer_authority(): return
